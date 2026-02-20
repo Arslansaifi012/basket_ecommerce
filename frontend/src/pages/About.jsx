@@ -15,14 +15,13 @@ const About = () => {
                 <img className="w-full md:max-w-[450px]" src={assets.about_img} alt="" />
                 <div className="flex flex-col justify-center gap-6 md:w-2/4 text-gray-600">
                    
-                   <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. consequuntur unde quisquam quasi, omnis soluta inventore!
-                   Unde ut, quaerat totam ullam obcaecati eum possimus soluta delectus vero? Sunt nemo fugit sequi noorrupti ad quis error!
-                i quas quasi!</p>
-                   <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum deleniti illo fuga, at aliquam velit eum expedita quae, recusandae sint minus ea id placeat dolorem dolorum, dicta odio? Itaque, nihil.
-                   A consequatur nesciunt alias quaerat iure velit enim nulla fugit nemo officiis repellat dignissimos quasi nostrum odolorem nulla, temporibus iste!</p>
+                   <p>Welcome to SaifWud – your trusted destination for premium PVC wicker storage baskets in India.
+We specialize in durable, lightweight, and stylish storage solutions designed to organize modern homes effortlessly. Our PVC woven baskets combine strength, flexibility, and elegant design, making them perfect for kitchens, wardrobes, bathrooms, and living spaces.
+At SaidWud, we focus on quality craftsmanship and practical functionality. Every basket is designed to provide long-lasting durability while enhancing the look of your space.
+Whether you are looking for a kitchen storage basket, wardrobe organizer, or multipurpose home storage solution, we are committed to delivering products that meet everyday needs with style.</p>
 
                    <b className="text-gray-800"> Our Mission</b>
-                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium numquam quod rerum asperiores </p>
+                   <p>Our mission is to provide high-quality PVC storage baskets that simplify home organization while maintaining affordability and modern design standards. </p>
                 </div>
             </div>
 
@@ -32,18 +31,18 @@ const About = () => {
 
             <div className="flex flex-col md:flex-row text-sm mb-20">
                 <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5" >
-                    <b>Quality Assurance:</b>
-                    <p className="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis repudiandae perferendis perspiciatis, repellendus veritatis quisquam excepturi ab libero atque, sunt non laborum. Sit quod perferendis unde ratione rem dolorum inventore.</p>
+                    <b>Premium Quality PVC Material:</b>
+                    <p className="text-gray-600">Our storage baskets are crafted from high-grade PVC woven material that ensures superior durability, flexibility, and long-lasting performance. Unlike traditional baskets, our PVC wicker baskets are resistant to moisture, easy to maintain, and designed to withstand daily use. If you are looking for a durable storage basket for home use, our products offer the perfect balance of strength and style..</p>
                 </div>
 
                  <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5" >
-                    <b>Convenience:</b>
-                    <p className="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis repudiandae perferendis perspiciatis, repellendus veritatis quisquam excepturi ab libero atque, sunt non laborum. Sit quod perferendis unde ratione rem dolorum inventore.</p>
+                    <b>Multipurpose Home Storage Solution:</b>
+                    <p className="text-gray-600">Our multipurpose storage baskets are ideal for kitchen storage, wardrobe organization, bathroom essentials, laundry use, and living room décor. Whether you need a wardrobe organizer basket, a kitchen storage basket, or a stylish home storage solution, our baskets are designed to meet various everyday storage needs efficiently.</p>
                 </div>
 
                  <div className="border px-10 md:px-16 py-8 sm:py-20 flex flex-col gap-5" >
-                    <b>Exceptional Customer Service</b>
-                    <p className="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis repudiandae perferendis perspiciatis, repellendus veritatis quisquam excepturi ab libero atque, sunt non laborum. Sit quod perferendis unde ratione rem dolorum inventore.</p>
+                    <b>Reliable Packaging & Customer Support</b>
+                    <p className="text-gray-600">We prioritize customer satisfaction by ensuring secure packaging, safe delivery, and responsive customer service. Our goal is to provide a smooth and trustworthy online shopping experience for every customer.</p>
                 </div>
             </div>
 

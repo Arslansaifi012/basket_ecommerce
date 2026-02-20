@@ -3,7 +3,6 @@ import express from 'express' ;
 import cors from 'cors' ;
 
 import 'dotenv/config'
-import { appendFile } from 'fs';
 import connectTodb from './config/mongodb.js';
 import connectTocloudinary from './config/cloudinary.js';
 import userRouter from './routes/userRoute.js';

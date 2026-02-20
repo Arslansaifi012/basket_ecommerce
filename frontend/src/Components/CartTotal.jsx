@@ -4,7 +4,15 @@ import Title from "./Title";
 
 const CartTotal = () =>{
 
-    const {getCartAmount, Currency, deliveryFee} = useContext(ShopContext) ;
+    const {getCartAmount, Currency, deliveryFee,cartItems, products} = useContext(ShopContext) ;
+    
+    const subtotal = getCartAmount(cartItems,products);
+    const total = subtotal === 0 ? 0 : subtotal + deliveryFee;
+
+
+
+
+    
 
     return (
         <div className="w-full">
@@ -15,7 +23,7 @@ const CartTotal = () =>{
             <div className="flex flex-col gap-2 mt-2 text-sm">
                 <div className="flex justify-between">
                     <p>Subtotal</p>
-                    <p>{getCartAmount()}.00</p>
+                    <p>{subtotal}.00</p>
                 </div>
                 <hr />
                 <div className="flex justify-between">
@@ -25,7 +33,7 @@ const CartTotal = () =>{
                 <hr />
                 <div className="flex justify-between">
                     <b>Total</b>
-                    <b>{Currency}{getCartAmount() === 0 ? 0 : getCartAmount() + deliveryFee}.00</b>
+                    <b>{Currency}{total}.00</b>
 
                 </div>
 

@@ -14,7 +14,6 @@ const Collection = () =>{
     const [subCategory, setsubCategory] = useState([]) ;
     const [sortType, setsortType] = useState('relavent') ;
 
-
     const toggleCategory = (e) =>{
 
         if (category.includes(e.target.value)) {
@@ -54,18 +53,25 @@ const Collection = () =>{
         }
     
         setFilterProducts(productsCopy) ;
-    }
+    };
+
+    const getMinPrice = (product) => {
+    return Math.min(...product.variants.map(v => v.price));
+};
 
     const sortProduct  = () =>{
-        let fpCopy = filterProducts.slice() ;
-
+        const fpCopy = [...filterProducts];
+        // console.log(fpCopy);
+        
         switch( sortType ){
             case 'low-high' :
-                setFilterProducts(fpCopy.sort((a,b) => (a.price - b.price))) ;
+                setFilterProducts(
+                    fpCopy.sort((a, b) => getMinPrice(a) - getMinPrice(b))
+                ) ;
                 break ;
 
                 case 'high-low':
-                    setFilterProducts(fpCopy.sort((a,b) => (b.price - a.price))) ;
+                    setFilterProducts(fpCopy.sort((a, b) => getMinPrice(b) - getMinPrice(a))) ;
                     break ;
 
                     default:
@@ -73,19 +79,15 @@ const Collection = () =>{
                         break ;
         }
     }
-    
 
     useEffect(() =>{
-        
+    
         applyFilter() ;
       
     },[category, subCategory, search, showSearch]) ;
 
-
     useEffect(()=>{
-
         sortProduct() ;
-
     },[sortType])
 
    
@@ -105,17 +107,22 @@ const Collection = () =>{
         
         <p className="flex gap-2">
             <input className="w-3" type="checkbox" value={'Wicker'} onChange={toggleCategory}/> 
-            Natural Wicker
+            PVC Wicker Baskets
         </p>
 
         <p className="flex gap-2">
             <input className="w-3" type="checkbox" value={'Bamboo'} onChange={toggleCategory}/> 
-            Eco-Bamboo
+            Kitchen Storage
         </p>
 
         <p className="flex gap-2">
             <input className="w-3" type="checkbox" value={'Wire'} onChange={toggleCategory}/> 
-            Metal Wire
+           Wardrobe Storage
+        </p>
+
+        <p className="flex gap-2">
+            <input className="w-3" type="checkbox" value={'Wire'} onChange={toggleCategory}/> 
+           Multipurpose Storage
         </p>
 
     </div>
@@ -149,14 +156,9 @@ const Collection = () =>{
 
   </div>
 </div>
-
-
             </div>
-
             {/* Right Area*/} 
-
             <div className="flex-1">
-
                 <div className="flex justify-between text-base sm:text-2xl mb-4">
                     <Title text1={'ALL'} text2={'COLLECTIONS'} />                         
 

@@ -10,7 +10,7 @@ const NewsletterBox = () =>{
                 Subcribe Now & get 20% Off
             </p>
             <p className="text-gray-400 mt-3"> 
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur.
+                Join our community and get updates on durable PVC storage baskets, kitchen organizers, wardrobe storage solutions, and exclusive member-only discounts.
             </p>
 
             <form onSubmit={onSubmithandler} className="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 bolder pl-3">

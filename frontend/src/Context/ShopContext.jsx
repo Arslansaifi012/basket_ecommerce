@@ -15,25 +15,22 @@ const ShopContextProvider = (props) =>{
 
     const  Currency = "$" ;
     const deliveryFee = 10;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
     const [search, setSearch] = useState('') ;
     const [showSearch, setShowSearch] = useState(false) ;
     const [cartItems, setCartItems] = useState({}) ;
+    // const [products, setPorducts] = useState([]);
+    const [token, setToken] = useState('') ;
     const navigate = useNavigate() ;
 
     const addTocart = async (itemId, size) =>{
-        console.log(size,'i am checing size in shopcontext');
-        
-
         if (!size) {
             toast.error('Please Select Product Size') ;
             return ;
-            
         }
 
         let cartData = structuredClone(cartItems) ;
-
         if (cartData[itemId]) {
-           
             if (cartData[itemId][size]) {
                 cartData[itemId][size] += 1;
             }else {
@@ -44,10 +41,9 @@ const ShopContextProvider = (props) =>{
             cartData[itemId] = {} ;
             cartData[itemId][size] = 1 ;
         }
-
         setCartItems(cartData) ;
     } ;
-
+    
     const getCartCount = () =>{
         let totalCount = 0 ;
 
@@ -71,35 +67,48 @@ const ShopContextProvider = (props) =>{
         let cartData = structuredClone(cartItems) ;
         cartData[itemId][size] = quantity ;
         setCartItems(cartData) ;
-    }
+    } ;
 
-    const getCartAmount = () => {
 
-        let totalAmount = 0 ;
+  /// CART AMOUNT ///////////
 
-        for (const items in cartItems){
-            let itemInfo = products.find((product) => product._id === items);  
-            
-            for(const item in cartItems[items]){
-                try {
+    const getCartAmount = (cartItems, products) => {
+    if (!cartItems || !products) return 0;
 
-                    if (cartItems[items][item] > 0) {
+    // Build product index once (O(n))
+    const productIndex = {};
 
-                        totalAmount += itemInfo.price * cartItems[items][item] ;
-                        
-                    }
-                    
-                } catch (error) {
-                    console.log(error.message,'getCartAmount Error');
-                    
-                }
-            }
+    for (const product of products) {
+        const variantMap = {};
+
+        for (const variant of product.variants) {
+            variantMap[variant.size] = variant.price;
         }
 
-        return totalAmount ;
-
-
+        productIndex[product._id] = variantMap;
     }
+
+    // Calculate total (O(cart items))
+    let total = 0;
+
+    for (const productId in cartItems) {
+        const variants = productIndex[productId];
+        if (!variants) continue;
+
+        for (const size in cartItems[productId]) {
+            const quantity = cartItems[productId][size];
+            if (quantity <= 0) continue;
+
+            const price = variants[size];
+            if (!price) continue;
+
+            total += price * quantity;
+        }
+    }
+console.log(total);
+
+    return total;
+};
 
     const value = {
         products , Currency , deliveryFee,
@@ -108,6 +117,7 @@ const ShopContextProvider = (props) =>{
         getCartCount ,
         updateQuantity,getCartAmount,
         navigate,
+        token,setToken,backendUrl
     }
 
     return(

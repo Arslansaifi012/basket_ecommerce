@@ -15,11 +15,24 @@ const Contact = () => {
 
                 <div className="flex flex-col justify-center items-start gap-6">
                     <p className="font-semibold text-xl text-gray-600 ">Our Store</p>
-                    <p className="text-gray-500">54709 Willms Station <br /> Salute 350, Washington USA</p>
-                    <p className="text-gray-500">Tel: (4125) 555-0132 <br /> Email:AdminShopify@gmail.com </p>
-                    <p className="font-semibold text-xl text-gray-500">Career At Shopify</p>
-                    <p className="text-gray-500">Lear More About Our Teams and Jobs Openenig </p>
-                    <button className="border border-black px-8 py-4 text-sm hover:bg-black hover:text-white transition-all duration-500 cursor-pointer">Explore Jobs</button>
+                    <p className="text-gray-500">We’d Love to Hear From You<br /> Have questions about our PVC wicker baskets or need help choosing the right storage solution? Our team is here to assist you.</p>
+                    <p className="text-gray-500">Tel: (+91) 9310074411 <br /> Email:support@saifwud.com </p>
+                    <p className="font-semibold text-xl text-gray-500">Mon – Sat | 10:00 AM – 6:00 PM</p>
+                    <p className="text-gray-500">Premium Quality Storage Baskets Designed for Durability & Style. </p>
+                    
+                    <button
+
+                    onClick={()=>{
+                        window.open(
+      "https://wa.me/9310074411?text=Hello%20I%20am%20interested%20in%20your%20storage%20baskets.",
+      "_blank"
+    );
+                    }}
+                    
+                    className="bg-green-600 text-white px-10 py-3 text-sm font-semibold rounded-full shadow-md hover:bg-green-700 hover:scale-105 transition-all duration-300 ease-in-out">
+
+  Chat on WhatsApp
+</button>
                 </div>
             </div>
 
