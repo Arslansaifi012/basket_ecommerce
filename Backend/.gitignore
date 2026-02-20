@@ -1,0 +1,36 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build files
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# Temporary files
+*.tmp
+*.swp
+
+# VSCode settings (optional)
+.vscode/
+
+# Uploads or user files (optional if storing locally)
+uploads/
+public/uploads/
+
+# MongoDB local files (optional if using locally)
+*.mongodb
+*.local
