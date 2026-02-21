@@ -42,12 +42,13 @@ const Collection = () =>{
         }
        
         if (category.length > 0) {
-
+            console.log(category,'line 45');
             productsCopy = productsCopy.filter(item => category.includes(item.category)) ;   
                      
         }
 
         if (subCategory.length > 0) {
+            
             productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory)) ;
         
         }
@@ -106,22 +107,22 @@ const Collection = () =>{
     <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
         
         <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={'Wicker'} onChange={toggleCategory}/> 
+            <input className="w-3" type="checkbox" value={'PVCWickerBaskets'} onChange={toggleCategory}/> 
             PVC Wicker Baskets
         </p>
 
         <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={'Bamboo'} onChange={toggleCategory}/> 
+            <input className="w-3" type="checkbox" value={'KitchenStorage'} onChange={toggleCategory}/> 
             Kitchen Storage
         </p>
 
         <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={'Wire'} onChange={toggleCategory}/> 
+            <input className="w-3" type="checkbox" value={'WardrobeStorage'} onChange={toggleCategory}/> 
            Wardrobe Storage
         </p>
 
         <p className="flex gap-2">
-            <input className="w-3" type="checkbox" value={'Wire'} onChange={toggleCategory}/> 
+            <input className="w-3" type="checkbox" value={'MultipurposeStorage'} onChange={toggleCategory}/> 
            Multipurpose Storage
         </p>
 
@@ -135,22 +136,22 @@ const Collection = () =>{
   <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
     
     <p className="flex gap-2">
-      <input className="w-3" type="checkbox" value={'Pantry'} onChange={toggleSubCategory}/> 
+      <input className="w-3" type="checkbox" value={'PantryStorage'} onChange={toggleSubCategory}/> 
       Pantry Storage
     </p>
 
     <p className="flex gap-2">
-      <input className="w-3" type="checkbox" value={'Vegetable'} onChange={toggleSubCategory}/> 
+      <input className="w-3" type="checkbox" value={'Fruits&Vegetables'} onChange={toggleSubCategory}/> 
       Fruits & Vegetables
     </p>
 
     <p className="flex gap-2">
-      <input className="w-3" type="checkbox" value={'Pull-out'} onChange={toggleSubCategory}/> 
+      <input className="w-3" type="checkbox" value={'CabinetPull-outs'} onChange={toggleSubCategory}/> 
       Cabinet Pull-outs
     </p>
 
     <p className="flex gap-2">
-      <input className="w-3" type="checkbox" value={'Tabletop'} onChange={toggleSubCategory}/> 
+      <input className="w-3" type="checkbox" value={'Tabletop&Serving'} onChange={toggleSubCategory}/> 
       Tabletop & Serving
     </p>
 

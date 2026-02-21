@@ -8,11 +8,9 @@ import bcrypt from "bcrypt" ;
 import jwt from "jsonwebtoken" ;
 
 const createToken = (id) =>{
-
     return jwt.sign({id}, process.env.JWT_SECRET) ;
+};
 
-}
- 
 const loginUser = async(req, res) =>{
 
     try {
@@ -25,9 +23,7 @@ const loginUser = async(req, res) =>{
     const user = await userModel.findOne({email}) ;
 
     if (!user) {
-
         return res.json({success:false, msg:`user doesn't exist this email`}) ;
-
     } ;
 
     const isMatch = await bcrypt.compare(password, user.password)  ;

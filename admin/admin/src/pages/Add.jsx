@@ -5,9 +5,7 @@ import axios from "axios";
 import { backendUrl } from "../App";
 import { toast } from "react-toastify";
 
-
 const Add =  ({token}) =>{
-   
 
     const[image1, setImage1] = useState(false) ;
      const[image2, setImage2] = useState(false) ;
@@ -27,11 +25,8 @@ const Add =  ({token}) =>{
 
        console.log(backendUrl + "/api/product/add");
 
-
         try {
-
             const formData = new FormData() ;
-
             formData.append("name",name) ;
             formData.append("description",description) ;
             formData.append("price",price) ;

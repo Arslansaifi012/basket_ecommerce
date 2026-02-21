@@ -109,8 +109,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket1,basket3],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "PVC Wicker Baskets",
+  subCategory: "Fruits & Vegetables",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -141,8 +141,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket1,basket2],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "Multipurpose Storage",
+  subCategory: "Pantry Storage",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -174,8 +174,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket2, basket5],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "PVCWickerBaskets",
+  subCategory: "PantryStorage",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -206,8 +206,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket3,basket3],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "KitchenStorage",
+  subCategory: "Vegetables",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -238,8 +238,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket4,basket3],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "WardrobeStorage",
+  subCategory: "CabinetPull-outs",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -271,8 +271,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket5,basket1],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "MultipurposeStorage",
+  subCategory: "Tabletop&Serving",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -303,7 +303,7 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket1,basket4],
-  category: "basket",
+  category: "KitchenStorage",
   subCategory: "kitchen",
   variants: [
     {
@@ -337,8 +337,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket2, basket3],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "KitchenStorage",
+  subCategory: "Tabletop&Serving",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -371,8 +371,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket5, basket3],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "Kitchen Storage",
+  subCategory: "Tabletop&Serving",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
@@ -405,8 +405,8 @@ export const products = [
   name: "Wicker Basket for Kitchen",
   description: "Durable PVC wicker basket perfect for kitchen storage.",
   image: [basket4,basket2],
-  category: "basket",
-  subCategory: "kitchen",
+  category: "MultipurposeStorage",
+  subCategory: "Tabletop&Serving",
   variants: [
     {
       size: '15" W X 16" D X 4" H',
