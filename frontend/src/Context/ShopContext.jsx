@@ -112,7 +112,7 @@ console.log(total);
 
     const value = {
         products , Currency , deliveryFee,
-        search, setSearch, showSearch, setShowSearch,
+        search,setCartItems, setSearch, showSearch, setShowSearch,
         cartItems, addTocart ,
         getCartCount ,
         updateQuantity,getCartAmount,
