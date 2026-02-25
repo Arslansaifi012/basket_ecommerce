@@ -45,8 +45,6 @@ const  addProduct = async (req, res) =>{
 
         res.json({success:false, msg:error.message })
     }
-
-
 } ;
 
 const listProducts = async (req, res) =>{

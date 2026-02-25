@@ -23,6 +23,8 @@ const List = ({ token }) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         const response = await axios.post(backendUrl + "/api/product/remove", { id }, { headers: { token } });
+        console.log(response);
+        
         if (response.data.success) {
           toast.success(response.data.message);
           await fetchList(); // Refresh list after deletion
