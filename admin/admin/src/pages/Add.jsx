@@ -40,6 +40,9 @@ const Add = ({ token }) => {
 
   const onsubmitHandler = async (e) => {
     e.preventDefault();
+   
+  
+    
     try {
       const formData = new FormData();
 
@@ -58,7 +61,6 @@ const Add = ({ token }) => {
       image4 && formData.append("image4", image4);
       console.log(Object.fromEntries(formData.entries()));
    
-
       const response = await axios.post(backendUrl + "/api/product/add", formData, { headers: { token } });
       console.log(response);
 
