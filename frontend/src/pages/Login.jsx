@@ -9,6 +9,8 @@ const Login = () => {
 
     const {token, setToken, navigate, backendUrl} = useContext(ShopContext) ;
     console.log(backendUrl);
+    console.log(token);
+    
     
     const [currentState, setCurrentState]  = useState('Login') ;
     const [name, setName] = useState('') ;
@@ -28,6 +30,7 @@ const Login = () => {
 
             if (response.data.success) {
                 setToken(response.data.token) ;
+                
                 localStorage.setItem('token',response.data.token) ;
             }else{
                 toast.error(response.data.msg) ;
@@ -38,6 +41,8 @@ const Login = () => {
             const response = await axios.post(backendUrl + '/api/user/login', {email,password}) ;
             console.log(response.data);
             if (response.data.success) {
+                console.log(response.data.token,'this line is token checking line');
+                
                 setToken(response.data.token)
                   localStorage.setItem('token',response.data.token) ;
 

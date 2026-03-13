@@ -6,7 +6,7 @@ import ProductItem from "../Components/ProductItem";
 
 const Collection = () =>{
     const {products, search, showSearch, updateQuantity} = useContext(ShopContext) ;
-    // console.log(products);
+    console.log(products);
     
     const [showFilter, setShowfilter] = useState(false) ;
     const [filterProducts, setFilterProducts]  = useState([]) ;
@@ -33,6 +33,8 @@ const Collection = () =>{
     }
 
     const applyFilter = () =>{
+        if (!products || products.length == 0) return ;
+
         let productsCopy = products?.slice() ;
 
         if (showSearch && search) {
@@ -81,10 +83,8 @@ const Collection = () =>{
     }
 
     useEffect(() =>{
-    
-        applyFilter() ;
-      
-    },[category, subCategory, search, showSearch]) ;
+        applyFilter() ; 
+    },[products,category, subCategory, search, showSearch]) ;
 
     useEffect(()=>{
         sortProduct() ;
@@ -172,6 +172,7 @@ const Collection = () =>{
                 </div>
 
                 {/*map products */}
+
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
 
