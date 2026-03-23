@@ -52,19 +52,21 @@ const ShopContextProvider = (props) =>{
         
 
         if(token){
-            console.log(token);
-        
-            try {
-               const responce = await axios.post(backendUrl + '/api/cart/add', {itemId,size}, {headers:{token}})
-                console.log(responce,'i am checking responce');
-                
-            } catch (error) {
-                console.log(error.message,'error is addTocart');
-                toast.error(error.message)
-                
+           try {
+            const response = await axios.post(
+                backendUrl + '/api/cart/add',
+                { itemId, size },
+                { headers: { token } }
+            );
+
+            if (!response.data.success) {
+                toast.error(response.data.message || 'Cart update failed');
             }
 
+        } catch (error) {
+            toast.error(error.response?.data?.message || error.message);
         }
+    } ;
 
     } ;
     
@@ -87,11 +89,25 @@ const ShopContextProvider = (props) =>{
         return totalCount ;
     } 
 
-    const updateQuantity = (itemId, size, quantity) =>{
-        let cartData = structuredClone(cartItems) ;
-        cartData[itemId][size] = quantity ;
-        setCartItems(cartData) ;
-    } ;
+    const updateQuantity = async (itemId, size, quantity) => {
+    let cartData = structuredClone(cartItems);
+    cartData[itemId][size] = quantity;
+    setCartItems(cartData);
+
+    // Agar user logged in hai, toh backend ko bhi update karein
+    if (token) {
+        try {
+            await axios.post(
+                backendUrl + '/api/cart/update', 
+                { itemId, size, quantity }, 
+                { headers: { token } }
+            );
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
+    }
+};
 
 
   /// CART AMOUNT ///////////
@@ -138,7 +154,7 @@ const getproductData = async() =>{
     try {
 
         const responce = await axios.get(backendUrl + '/api/product/list') ;
-        console.log(responce, 'i am checking data');
+        console.log(responce, 'i am checking data 143');
         
         if (responce.data.success) {
             setPorducts(responce.data.productS)
@@ -154,25 +170,39 @@ const getproductData = async() =>{
     }
 } ;
 
-// const getUserCart = async(token){
-//     try {
-//         const responce = await axios.post()
-//     } catch (error) {
-//         console.log(error.message, 'error is userCart');
-        
-//     }
-// }
+// Existing useEffect for products
+useEffect(() => {
+    getproductData();
+}, []);
 
-useEffect(()=>{
-    getproductData() ;
-},[]) ;
+// Naya useEffect: Refresh hone par token aur cart wapas lane ke liye
+useEffect(() => {
+    const localToken = localStorage.getItem('token');
+    if (!token && localToken) {
+        // Agar state mein token nahi h par localStorage mein h
+        setToken(localToken);
+        getUserCart(localToken); // Database se cart fetch karein
+    }
+}, []);
+
+const getUserCart = async (token) => {
+        try {
+            const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
+            if (response.data.success) {
+                setCartItems(response.data.cartData);
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.message);
+        }
+    }
 
 
 
     const value = {
         products , Currency , deliveryFee,
         search,setCartItems, setSearch, showSearch, setShowSearch,
-        cartItems, addTocart ,
+        cartItems, getproductData, addTocart ,
         getCartCount ,
         updateQuantity,getCartAmount,
         navigate,
