@@ -1,10 +1,53 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../Context/ShopContext";
 import Title from "../Components/Title";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Order = () => {
 
-    const {products, Currency } = useContext(ShopContext) ;
+    const {products,backendUrl, token, Currency } = useContext(ShopContext) ;
+    const [orderData,setorderData] = useState() ;
+
+    const loadOrderData = async() =>{
+
+    
+        try {
+            if (!token) return null ;
+
+            const responce = await axios.post(backendUrl + '/api/order/userorders', {}, {headers:{token}}) ;
+            console.log(responce,'i am checking orderData ');
+          
+            if (responce.data.success) {
+                let allOrders = [] ;
+
+                responce.data.orders.map((order)=>{
+                    order.items.map((item)=>{
+                        item['status'] = order.status
+                        item['payment'] = order.payment
+                        item['paymentMethod'] = order.paymentMethod
+                        item['date'] = order.date
+                        allOrders.push(item) ;
+                    }) ;
+
+                }) ;
+
+                setorderData(allOrders.reverse()) ;
+                
+            } ;
+            
+        } catch (error) {
+            console.log(error.message);
+            toast.error(error.message);
+            
+        }
+    } ;
+
+    useEffect(()=>{
+        loadOrderData() ;
+
+    },[token]) ;
+    
 
 
     return (
@@ -16,7 +59,9 @@ const Order = () => {
 
             <div>
                 {
-                    products.slice(1, 4).map((item, ind)=>(
+                    orderData?.slice(1, 4).map((item, ind)=>(
+                        console.log(item,'this is item line22'),
+                        
                         <div key={ind} className="py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4 ">
                             <div className="flex items-start gap-6 text-sm">
 

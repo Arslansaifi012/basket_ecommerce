@@ -8,8 +8,8 @@ import CartTotal from "../Components/CartTotal";
 const Cart = () => {
     const {products, Currency, cartItems, updateQuantity,navigate} = useContext(ShopContext) ;
     const [cartData, setCartData] = useState([]) ;
-    console.log(cartItems,'this is cartItems 11');
-    console.log(cartData, 'this is cartData 12');
+    console.log(cartItems,'this is cart items 13');
+    
     
     
 

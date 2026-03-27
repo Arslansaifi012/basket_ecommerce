@@ -8,6 +8,7 @@ import connectTocloudinary from './config/cloudinary.js';
 import userRouter from './routes/userRoute.js';
 import productRouter from './routes/productRoute.js';
 import cartRouter from './routes/cartRoutes.js';
+import orderRoutes from './routes/orderRoutes.js'
 //  App Config ;
 
 const app = express() ;
@@ -24,7 +25,7 @@ app.use(cors()) ;
 app.use('/api/user', userRouter) ;
 app.use('/api/product', productRouter) ;
 app.use('/api/cart/',cartRouter) ;
-
+app.use('/api/order',orderRoutes)
 
 app.listen(port, () => console.log(`srever is running at : ${port} port`)) ;
 

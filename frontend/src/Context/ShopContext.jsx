@@ -23,8 +23,8 @@ const ShopContextProvider = (props) =>{
     const [products, setPorducts] = useState([]);
     const [token, setToken] = useState('') ;
     const navigate = useNavigate() ;
-    console.log(token,'this is token line');
-    
+  console.log(cartItems);
+  
 
     const addTocart = async (itemId, size) =>{
        console.log(itemId, + "--======",size);
@@ -186,8 +186,12 @@ useEffect(() => {
 }, []);
 
 const getUserCart = async (token) => {
+    console.log(token, 'this is my token ok ');
+    
         try {
             const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
+            console.log(response, ' this is cartData 191');
+            
             if (response.data.success) {
                 setCartItems(response.data.cartData);
             }
