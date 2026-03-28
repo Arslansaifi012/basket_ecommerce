@@ -1,13 +1,93 @@
 import { useContext, useState } from "react";
-import { assets } from "../assets/assets";
+import { assets, products } from "../assets/assets";
 import CartTotal from "../Components/CartTotal";
 import Title from "../Components/Title";
 import { ShopContext } from "../Context/ShopContext";
+import { data } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () =>{
 
     const [method, setMethod] = useState('cod') ;
-    const {navigate} = useContext(ShopContext) ;
+    const {navigate,backendUrl, token, cartItems, setCartItems,getCartAmount, deliveryFee} = useContext(ShopContext) ;
+ 
+    const [formData, setFormData] = useState({
+         firstName:'',
+        lastName:''  ,
+        email:'',
+        street:'',
+        city:'',
+        state:'',
+        zipCode:'',
+        country:'',
+        phone:''
+    }) ;
+
+    const onChangehandler = (e) =>{
+        const name = e.target.name ;
+        const value = e.target.value ;
+
+        setFormData(data=> ({...data, [name]:value})) ;
+
+    } ;
+
+    const onSubmitHandler = async(e) =>{
+        e.preventDefault() ;
+        try {
+            let orderItems = [] ;
+            for (const items in cartItems){
+                for (const item in cartItems[items]){
+                    if (cartItems[items][item] > 0) {
+                        const itemInfo = structuredClone(products.find(product => product._id ===items)) ;
+                        if (itemInfo) {
+                            itemInfo.size = item ;
+                            item.quantity = cartItems[items][item] ;
+                            orderItems.push(itemInfo) ;
+                        }
+                    }
+                }
+            } ;
+
+            let orderData = {
+                address:formData ,
+                items:orderItems,
+                amount:getCartAmount() + deliveryFee ,
+                date:Date.now() ,
+            }
+
+            switch (method) {
+                case 'cod':
+                    const responce = await axios.post(backendUrl + '/api/order/place', orderData, {headers:{token}});
+                    
+                    if (responce.data.success) {
+                        setCartItems({}) ;
+                        navigate('/order')
+                    }else{
+                        toast.error(responce.data.message)
+                    }
+                    break;
+
+                    case 'stripe':
+                        const responceStripe = await axios.post(backendUrl + '/api/order/stripe', orderData, {headers:{token}}) ;
+                        if (responceStripe.data.success) {
+                            const {session_url} = responceStripe.data ;
+                            window.location.replace(session_url) ;
+
+                        }else{
+                            toast.error(responceStripe.data.message) ;
+                        }
+                default:
+                    break;
+            }
+            
+        } catch (error) {
+            console.log(error.message,'error_palce_order');
+            toast.error(error.message) ;
+            
+        }
+    }
+
 
     return (
         <div className="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">
