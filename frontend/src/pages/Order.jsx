@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Order = () => {
 
-    const {products,backendUrl, token, Currency } = useContext(ShopContext) ;
+    const {backendUrl, token, Currency } = useContext(ShopContext) ;
     const [orderData,setorderData] = useState() ;
 
     const loadOrderData = async() =>{
@@ -16,8 +16,6 @@ const Order = () => {
             if (!token) return null ;
 
             const responce = await axios.post(backendUrl + '/api/order/userorders', {}, {headers:{token}}) ;
-            console.log(responce,'i am checking orderData 19');
-            return ;
           
             if (responce.data.success) {
                 let allOrders = [] ;

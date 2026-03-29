@@ -23,8 +23,6 @@ const ShopContextProvider = (props) =>{
     const [products, setPorducts] = useState([]);
     const [token, setToken] = useState('') ;
     const navigate = useNavigate() ;
-  console.log(cartItems);
-  
 
     const addTocart = async (itemId, size) =>{
        console.log(itemId, + "--======",size);
@@ -145,7 +143,6 @@ const ShopContextProvider = (props) =>{
             total += price * quantity;
         }
     }
-console.log(total);
 
     return total;
 };
@@ -161,6 +158,7 @@ const getproductData = async() =>{
             
         }else{
             console.log(responce.data.message);
+            
             
         }
 
@@ -190,13 +188,12 @@ const getUserCart = async (token) => {
     
         try {
             const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
-            console.log(response, ' this is cartData 191');
             
             if (response.data.success) {
                 setCartItems(response.data.cartData);
             }
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
             toast.error(error.message);
         }
     }

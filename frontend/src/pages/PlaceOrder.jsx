@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { assets, products } from "../assets/assets";
+import { assets } from "../assets/assets";
 import CartTotal from "../Components/CartTotal";
 import Title from "../Components/Title";
 import { ShopContext } from "../Context/ShopContext";
@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 const PlaceOrder = () =>{
 
     const [method, setMethod] = useState('cod') ;
-    const {navigate,backendUrl, token, cartItems, setCartItems,getCartAmount, deliveryFee} = useContext(ShopContext) ;
+    const {products,navigate,backendUrl, token, cartItems, setCartItems,getCartAmount, deliveryFee} = useContext(ShopContext) ;
  console.log(cartItems,'checing cartItems in line 13');
  
     const [formData, setFormData] = useState({
@@ -31,6 +31,8 @@ const PlaceOrder = () =>{
         setFormData(data=> ({...data, [name]:value})) ;
     
     } ;
+    console.log(cartItems, 'this is cartItems 34');
+    
 
     const onSubmitHandler = async(e) =>{
         e.preventDefault() ;
@@ -41,13 +43,24 @@ const PlaceOrder = () =>{
                 
                 for (const item in cartItems[items]){
                     if (cartItems[items][item] > 0) {
+                        console.log(item,'item ko dekh raha hu okkkk....');
+                        
                         const itemInfo = structuredClone(products.find(product => product._id ===items)) ;
                         console.log(itemInfo,'this is Item info 43');
-                        if (itemInfo) {
-                            itemInfo.size = item ;
-                            item.quantity = cartItems[items][item] ;
-                            orderItems.push(itemInfo) ;
-                        }
+                      if (itemInfo) {
+                           const variant = itemInfo.variants.find(v => v.size === item);
+                              const newItem = {
+                                       ...itemInfo,
+                                        size: item,
+                                         quantity: cartItems[items][item],
+                                          price: variant?.price,
+                                          oldPrice: variant?.oldPrice
+    };
+    orderItems.push(newItem);
+}
+
+console.log(orderItems);
+
                     }
                 }
             } ;
@@ -58,10 +71,6 @@ const PlaceOrder = () =>{
                 amount:getCartAmount() + deliveryFee ,
                 date:Date.now() ,
             }
-
-            console.log(orderData,' this is place holder orderdata');
-            return ;
-            
            
 
             switch (method) {
