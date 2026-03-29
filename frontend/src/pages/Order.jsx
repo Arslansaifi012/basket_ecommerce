@@ -10,7 +10,6 @@ const Order = () => {
     const [orderData,setorderData] = useState() ;
 
     const loadOrderData = async() =>{
-
     
         try {
             if (!token) return null ;
@@ -33,7 +32,7 @@ const Order = () => {
 
                 setorderData(allOrders.reverse()) ;
                 
-            } ;
+            } ;            
             
         } catch (error) {
             console.log(error.message);
@@ -58,8 +57,7 @@ const Order = () => {
 
             <div>
                 {
-                    orderData?.slice(1, 4).map((item, ind)=>(
-                        console.log(item,'this is item line22'),
+                    orderData?.slice(0, 4).map((item, ind)=>(
                         
                         <div key={ind} className="py-4 border-t border-b text-gray-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4 ">
                             <div className="flex items-start gap-6 text-sm">
@@ -85,7 +83,6 @@ const Order = () => {
                                 </div>
 
                                 <button className="border px-4 py-2 text-sm font-medium rounded-sm">Track Order</button>
-                             
 
                             </div>
 
@@ -98,4 +95,4 @@ const Order = () => {
     )
 } ;
 
-export  default Order ; 
+export default Order ; 
