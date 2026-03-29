@@ -109,4 +109,5 @@ const selectedVariant = productData.variants.find(
     </div>
 );
 }
+
 export default Cart ;

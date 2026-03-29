@@ -15,7 +15,8 @@ const Order = () => {
             if (!token) return null ;
 
             const responce = await axios.post(backendUrl + '/api/order/userorders', {}, {headers:{token}}) ;
-          
+             console.log(responce);
+             
             if (responce.data.success) {
                 let allOrders = [] ;
 
@@ -65,10 +66,10 @@ const Order = () => {
                                     <p className="sm:text-base font-medium">{item.className}</p>
                                     <div className="flex items-center gap-3 mt-2 text-base text-gray-700 ">
                                         <p className="text-lg">{Currency}{item.price}</p>
-                                        <p>Quantity: 1</p>
-                                        <p>Size : M</p>
+                                        <p>Quantity : {item.quantity}</p>
+                                        <p>Size : {item.size}</p>
                                     </div>
-                                    <p className="mt-2">Date: <span className="text-gray-400">25, july, 2025</span></p>
+                                    <p className="mt-2">Date: <span className="text-gray-400">{new Date(item.updatedAt).toLocaleString()}</span></p>
                                 </div>
                             </div>
                             <div className="md:w-1/2 flex justify-between">
@@ -76,9 +77,9 @@ const Order = () => {
                                <div className="flex items-center gap-2">
 
                                 <p className="min-w-2 h-2 rounded-full bg-green-500"></p>
-                                <p className="text-sm md:text-base">Ready to Ship</p>
+                                <p className="text-sm md:text-base">{item.status}</p>
                                 </div>
-                                <button className="border px-4 py-2 text-sm font-medium rounded-sm">Track Order</button>
+                                <button onClick={()=> loadOrderData()} className="border px-4 py-2 text-sm font-medium rounded-sm">Track Order</button>
 
                             </div>
 
