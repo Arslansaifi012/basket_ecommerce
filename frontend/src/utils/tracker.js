@@ -3,7 +3,7 @@ import axios from 'axios' ;
 
 
 
-// const TRACKING_API = import.meta.env.VITE_BACKEND_URL + '/api/track';
+const TRACKING_API = import.meta.env.VITE_BACKEND_URL + '/api/activity/track';
 
 export const trackEvent = async (token, eventType, data = {} ) =>{
     const payload ={
