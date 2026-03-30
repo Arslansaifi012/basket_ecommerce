@@ -3,9 +3,10 @@ import { ShopContext } from "../Context/ShopContext";
 import { assets } from "../assets/assets";
 import Title from "../Components/Title";
 import ProductItem from "../Components/ProductItem";
+import { trackEvent } from "../utils/tracker";
 
 const Collection = () =>{
-    const {products, search, showSearch, updateQuantity} = useContext(ShopContext) ;
+    const {token,products, search, showSearch, updateQuantity} = useContext(ShopContext) ;
     console.log(products);
     
     const [showFilter, setShowfilter] = useState(false) ;
@@ -15,20 +16,24 @@ const Collection = () =>{
     const [sortType, setsortType] = useState('relavent') ;
 
     const toggleCategory = (e) =>{
+        const val = e.target.value;
 
         if (category.includes(e.target.value)) {
             setCategory(prev => prev.filter((item) => item !== e.target.value)) ;
         }else{ 
             setCategory(prev => [...prev,e.target.value]) ;
+            trackEvent(token, 'file_category', { category:val })
         }
     }
 
     const toggleSubCategory = (e) =>{
+         const val = e.target.value;
         if (subCategory.includes(e.target.value)) {
             setsubCategory(prev => prev.filter((item) => item !== e.target.value)) ;
             
         }else{
             setsubCategory(prev => [...prev,e.target.value]) ;
+            trackEvent(token, 'filter_subCategory', {subCategory: val});
         }
     }
 
@@ -55,6 +60,15 @@ const Collection = () =>{
         }
     
         setFilterProducts(productsCopy) ;
+
+        if (productsCopy.length > 0) {
+            trackEvent(token, 'collection_view',{
+                resultCount : productsCopy.length ,
+                topResult : productsCopy.slice(0,3).map(p => p._id)
+
+            }) ;
+        }
+
     };
 
     const getMinPrice = (product) => {
@@ -63,7 +77,6 @@ const Collection = () =>{
 
     const sortProduct  = () =>{
         const fpCopy = [...filterProducts];
-        // console.log(fpCopy);
         
         switch( sortType ){
             case 'low-high' :
@@ -84,10 +97,19 @@ const Collection = () =>{
 
     useEffect(() =>{
         applyFilter() ; 
+        if(showSearch && search.length > 2){
+            trackEvent(token, 'search_query', {keyword: search}) ;
+        }
     },[products,category, subCategory, search, showSearch]) ;
+
 
     useEffect(()=>{
         sortProduct() ;
+
+        if (sortType !== 'relavant') {
+            trackEvent(token, 'sort_chnage', {type: sortType}) ;
+        } ;
+
     },[sortType])
 
    
