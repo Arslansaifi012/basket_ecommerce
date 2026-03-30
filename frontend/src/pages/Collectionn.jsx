@@ -97,9 +97,6 @@ const Collection = () =>{
 
     useEffect(() =>{
         applyFilter() ; 
-        if(showSearch && search.length > 2){
-            trackEvent(token, 'search_query', {keyword: search}) ;
-        }
     },[products,category, subCategory, search, showSearch]) ;
 
 

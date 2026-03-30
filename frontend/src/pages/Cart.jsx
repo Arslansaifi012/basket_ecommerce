@@ -4,9 +4,10 @@ import { ShopContext } from "../Context/ShopContext";
 import Title from "../Components/Title";
 import { assets } from "../assets/assets";
 import CartTotal from "../Components/CartTotal";
+import { trackEvent } from "../utils/tracker";
 
 const Cart = () => {
-    const {products, Currency, cartItems, updateQuantity,navigate} = useContext(ShopContext) ;
+    const {token,products, Currency, cartItems, updateQuantity,navigate} = useContext(ShopContext) ;
     const [cartData, setCartData] = useState([]) ;
     console.log(cartItems,'this is cart items 13');
     
@@ -24,13 +25,18 @@ const Cart = () => {
                         size:item,
                         quantity:cartItems[items][item] ,
                     })
-                    
                 }
             }
         }
-        
-        
         setCartData(tempData);
+
+        if (tempData.length > 0) {
+            trackEvent(token, 'VIEW_CART', {
+                itemCount:tempData.length,
+                items: tempData.map(i => ({ id: i._id, qty: i.quantity }))
+            })
+            
+        }
         
     },[cartItems]);
     

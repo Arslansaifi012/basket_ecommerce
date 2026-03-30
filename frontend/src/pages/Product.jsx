@@ -3,11 +3,12 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
 import { assets } from "../assets/assets";
 import RelatedProduct from "../Components/RelatedProduct";
+import {trackEvent} from '../utils/tracker.js'
 
 const Product = () => {
 
   const { productId } = useParams();
-  const { products, Currency, addTocart, } = useContext(ShopContext);
+  const {token, products, Currency, addTocart, } = useContext(ShopContext);
 
   const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
@@ -23,8 +24,24 @@ const Product = () => {
       setProductData(foundProduct);
       setImage(foundProduct.image[0]);
       setSize(foundProduct.variants[0]?.size); // default first size
+
+      trackEvent(token, 'view_item', {
+        productId:foundProduct._id,
+        name: foundProduct.name,
+        category: foundProduct.category,
+        price : foundProduct. variants[0]?.price
+      })
+
     }
   }, [productId, products]);
+
+  const selectSize = (selectedSize) => {
+    setSize(selectedSize);
+    trackEvent(token, 'SELECT_SIZE', {
+        productId: productData._id,
+        size: selectedSize
+    });
+}
 
   // Get selected variant dynamically
   const selectedVariant = productData?.variants.find(
@@ -95,7 +112,7 @@ const Product = () => {
               {productData.variants.map((variant, ind) => (
                 <button
                   key={ind}
-                  onClick={() => setSize(variant.size)}
+                  onClick={() => selectSize(variant.size)}
                   className={`border rounded-lg p-3 text-left transition-all duration-200 w-[200px]
                     ${
                       variant.size === size

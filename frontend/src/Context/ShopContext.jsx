@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import Login from "../pages/Login";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { trackEvent } from "../utils/tracker"; 
 
 export const ShopContext = createContext({
      getCartCount: () => 0,   
@@ -47,6 +47,12 @@ const ShopContextProvider = (props) =>{
             cartData[itemId][size] = 1 ;
         }
         setCartItems(cartData) ;
+
+        // --- TRACKER START ---
+        trackEvent(token, 'ADD_TO_CART', { 
+        productId: itemId, 
+        size: size 
+    });
         
 
         if(token){
@@ -91,6 +97,17 @@ const ShopContextProvider = (props) =>{
     let cartData = structuredClone(cartItems);
     cartData[itemId][size] = quantity;
     setCartItems(cartData);
+
+    // --- TRACKER START ---
+    if (quantity === 0) {
+        trackEvent(token, 'REMOVE_FROM_CART', { productId: itemId, size: size });
+    } else {
+        trackEvent(token, 'UPDATE_QUANTITY', { 
+            productId: itemId, 
+            size: size, 
+            newQuantity: quantity 
+        });
+    }
 
     // Agar user logged in hai, toh backend ko bhi update karein
     if (token) {
@@ -197,6 +214,16 @@ const getUserCart = async (token) => {
             toast.error(error.message);
         }
     }
+
+    useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+        if (search.trim().length > 2 && showSearch) {
+            trackEvent(token, 'SEARCH_QUERY', { query: search });
+        }
+    }, 1000); // Wait 1 second after user stops typing to track
+
+    return () => clearTimeout(delayDebounceFn);
+}, [search, showSearch]);
 
 
 
