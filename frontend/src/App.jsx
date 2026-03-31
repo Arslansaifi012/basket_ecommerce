@@ -13,6 +13,8 @@ import Order from "./pages/Order";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import SearchBar from "./Components/searchBar";
+import AIAgent from "./Components/AIAgent";
+
   import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css' ;
 
@@ -34,8 +36,8 @@ const App = () =>{
          <Route path="/placeOrder" element = {<PlaceOrder/>} />
         <Route path="/order" element={<Order />} />
       </Routes>
-      
       <Footer />
+      <AIAgent />
     </div>
   )
 }

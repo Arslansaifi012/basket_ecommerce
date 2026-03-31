@@ -11,12 +11,14 @@ import cartRouter from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js'
 import trackRouter from './routes/userActivityRoute.js';
 import aiRouter from './routes/aiRoutes.js';
+import listModels from './config/allModelsGemini.js';
 //  App Config ;
 
 const app = express() ;
 const port = process.env.PORT || 4000 ;
 connectTodb() ;
 connectTocloudinary() ;
+// listModels() ;
 
 //middleWares ;
 app.use(express.json()) ;
