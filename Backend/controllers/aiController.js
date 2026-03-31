@@ -1,5 +1,5 @@
 
-import userActivityModel from '../models/userActitvityModel' ;
+import userActivityModel from '../models/userActitvityModel.js' ;
 
 const getUserBehaviorSummary =  async (userId) =>{
 
@@ -21,7 +21,6 @@ const getUserBehaviorSummary =  async (userId) =>{
         console.log(error.message);
         res.json({success:false, message:error.message})
     }
-
 }
 
 export {getUserBehaviorSummary}

@@ -1,6 +1,6 @@
 
 import express from 'express' ;
-import { getUserBehaviorSummary } from '../controllers/aiController';
+import { getUserBehaviorSummary } from '../controllers/aiController.js';
 
 const aiRouter = express.Router() ;
 
@@ -24,3 +24,4 @@ aiRouter.post('/chat', async (req, res)=>{
     });
 })
 
+export default aiRouter ;
