@@ -7,10 +7,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
 
-    const {token, setToken, navigate, backendUrl} = useContext(ShopContext) ;
-    console.log(backendUrl);
-    console.log(token);
-    
+    const {token, setToken, navigate, backendUrl} = useContext(ShopContext) ;    
     
     const [currentState, setCurrentState]  = useState('Login') ;
     const [name, setName] = useState('') ;
@@ -40,6 +37,7 @@ const Login = () => {
 
             const response = await axios.post(backendUrl + '/api/user/login', {email,password}) ;
             console.log(response.data);
+
             if (response.data.success) {
                 console.log(response.data.token,'this line is token checking line');
                 
@@ -60,10 +58,10 @@ const Login = () => {
 
 
      useEffect(()=>{
-        if (token) {
-            navigate('/')
+        // if (token) {
+        //     navigate('/')
             
-        }
+        // }
 
     },[token]) ;
 

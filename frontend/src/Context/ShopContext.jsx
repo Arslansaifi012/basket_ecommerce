@@ -54,7 +54,6 @@ const ShopContextProvider = (props) =>{
         size: size 
     });
         
-
         if(token){
            try {
             const response = await axios.post(
