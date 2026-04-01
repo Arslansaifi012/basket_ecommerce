@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { ShopContext } from '../Context/ShopContext';
 import axios from 'axios';
 import { Send, Bot, User, X, MessageSquare, Sparkles } from 'lucide-react';
+import { ShopContext } from '../context/ShopContext';
 
 const AIAgent = () => {
     const { backendUrl, token } = useContext(ShopContext);
