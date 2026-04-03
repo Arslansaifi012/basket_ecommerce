@@ -21,7 +21,7 @@ const ShopContextProvider = (props) =>{
     const [showSearch, setShowSearch] = useState(false) ;
     const [cartItems, setCartItems] = useState({}) ;
     const [products, setPorducts] = useState([]);
-    const [token, setToken] = useState('') ;
+    const [token, setToken] = useState(localStorage.getItem('token') || '') ;
     const navigate = useNavigate() ;
 
     const addTocart = async (itemId, size) =>{
@@ -190,29 +190,40 @@ useEffect(() => {
 }, []);
 
 // Naya useEffect: Refresh hone par token aur cart wapas lane ke liye
-useEffect(() => {
-    const localToken = localStorage.getItem('token');
-    if (!token && localToken) {
-        // Agar state mein token nahi h par localStorage mein h
-        setToken(localToken);
-        getUserCart(localToken); // Database se cart fetch karein
-    }
-}, []);
+
+
 
 const getUserCart = async (token) => {
-    console.log(token, 'this is my token ok ');
-    
-        try {
-            const response = await axios.post(backendUrl + '/api/cart/get', {}, { headers: { token } });
-            
-            if (response.data.success) {
-                setCartItems(response.data.cartData);
-            }
-        } catch (error) {
-            console.log(error.message);
-            toast.error(error.message);
+    try {
+        const response = await axios.post(
+            backendUrl + '/api/cart/get', 
+            {}, 
+            { headers: { token } }
+        );
+        
+        if (response.data.success) {
+            setCartItems(response.data.cartData);
+        } else if (response.data.message.includes('Login Again') || 
+                   response.data.message.includes('Invalid Token')) {
+            // ✅ Token invalid hai — silently logout karo
+            console.log('Token expired, logging out');
+            setToken('');
+            localStorage.removeItem('token');
+            setCartItems({});
+            // navigate('/login') // optional — force login nahi karna chahte toh comment rakho
         }
+
+    } catch (error) {
+        console.log(error.message);
+        // toast.error mat karo yahan — refresh pe user ko error nahi dikhana
     }
+};
+
+    useEffect(() => {
+    if (token) {
+        getUserCart(token); // ✅ token hai toh cart fetch karo
+    }
+}, [token]);
 
     useEffect(() => {
     const delayDebounceFn = setTimeout(() => {

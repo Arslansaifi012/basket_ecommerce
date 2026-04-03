@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { ShopContext } from "../context/ShopContext";
+import { ShopContext } from "../Context/ShopContext";
 import axios from 'axios' ;
 import { toast } from "react-toastify";
 
@@ -25,6 +25,10 @@ const Login = () => {
             const response = await axios.post(backendUrl + '/api/user/register',{name,email,password}) ;
             console.log(response);
 
+            if (!response.data.success && response.data.message.includes('Login Again')) {
+    logout();
+}
+
             if (response.data.success) {
                 setToken(response.data.token) ;
                 
@@ -40,6 +44,10 @@ const Login = () => {
 
             if (response.data.success) {
                 console.log(response.data.token,'this line is token checking line');
+
+                if (!response.data.success && response.data.message.includes('Login Again')) {
+    logout();
+}
                 
                 setToken(response.data.token)
                   localStorage.setItem('token',response.data.token) ;

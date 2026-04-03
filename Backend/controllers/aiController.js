@@ -3,6 +3,13 @@ import userActivityModel from '../models/userActitvityModel.js';
 import userModel from '../models/userMoel.js';
 import chatModel from '../models/chatModel.js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+// import Anthropic from '@anthropic-ai/sdk';
+// const anthropic = new Anthropic({
+//     apiKey: process.env.ANTHROPIC_API_KEY
+// });
+
+// console.log(process.env.ANTHROPIC_API_KEY ,'lone 11');
+
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
@@ -32,9 +39,6 @@ const getUserBehaviorSummary = async (userId) => {
                 categories.filter(v => v === a).length - categories.filter(v => v === b).length
               ).pop() 
             : "General";
-
-        
-
 
             const productActivity =  history.length === 0 ? 0 : history.length <= 10 ? 1 : history.length <=30 ? 2 : 3 ;
             const recentChat = chatHistory
@@ -114,10 +118,9 @@ const askAiAgent = async (req, res) => {
             await chatModel.create({ userId, role: 'user', text: message });
         }
 
-        // C. Setup Gemini
-        const model = genAI.getGenerativeModel({ 
-            model: "gemini-flash-latest",
-        });
+                    const model = genAI.getGenerativeModel({ 
+    model: "gemini-2.0-flash",
+});
 
         const systemPrompt = `You are "Aura" — a sharp, stylish personal shopper for an e-commerce website.
 Warm, witty, and always under 20 words.
@@ -206,6 +209,16 @@ USER'S CURRENT MESSAGE
         // D. Generate AI Response
         const result = await model.generateContent(systemPrompt);
         const aiReply = result.response.text().trim();
+
+          // C. Setup claude Anthropic
+    //        const result = await anthropic.messages.create({
+    // model: "claude-sonnet-4-20250514",
+    // max_tokens: 1000,
+//     messages: [
+//         { role: "user", content: systemPrompt }
+//     ]
+// });
+// const aiReply = result.content[0].text.trim();
 
         // E. Save the BOT'S reply to Database
         await chatModel.create({ userId, role: 'bot', text: aiReply });

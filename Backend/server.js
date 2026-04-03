@@ -11,7 +11,7 @@ import cartRouter from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js'
 import trackRouter from './routes/userActivityRoute.js';
 import aiRouter from './routes/aiRoutes.js';
-import listModels from './config/allModelsGemini.js';
+// import listModels from './config/allModelsGemini.js';
 //  App Config ;
 
 const app = express() ;
@@ -34,4 +34,5 @@ app.use('/api/activity', trackRouter) ;
 app.use('/api/ai',aiRouter) ;
 
 app.listen(port, () => console.log(`srever is running at : ${port} port`)) ;
+
 
